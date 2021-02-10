@@ -31,10 +31,10 @@ const SimpleList = () => {
   return(
     <View
       style={{
-      flex: 1,      
-      alignItems: 'center',
-      justifyContent: 'center',
-    }}
+        flex: 1,      
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
     >
       {/* JSX Element에 코드를 삽입하려면 {} 중괄호를 삽입 */}
       {
