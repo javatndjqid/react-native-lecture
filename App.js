@@ -16,6 +16,13 @@ import Actions from './components/Actions'
 // https://ionicons.com/
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+
+import rootReducer from './redux/reducers'
+
+const store=createStore(rootReducer);
+
 const Tab = createBottomTabNavigator();
 
 
@@ -23,23 +30,23 @@ const HomeStack = createStackNavigator();
 const HomeStackScreen = () => {
   return (
     <HomeStack.Navigator>
-      <HomeStack.Screen name="Home" component={Home} options={{title:"Home", headerTitleAlign:"center"}} />
-      <HomeStack.Screen name="Details" component={Details} options={{title:"Details", headerTitleAlign:"center"}}  />
+      <HomeStack.Screen name="Home" component={Home} options={{ title: "Home", headerTitleAlign: "center" }} />
+      <HomeStack.Screen name="Details" component={Details} options={{ title: "Details", headerTitleAlign: "center" }} />
     </HomeStack.Navigator>
   )
 }
 
 const ListStack = createStackNavigator();
 const ListStackScreen = () => {
-  return(
+  return (
     <ListStack.Navigator>
-      <ListStack.Screen name="List" component={List} options={{title:"List",headerTitleAlign:"center"}}/>
-      <ListStack.Screen name="Details" component={Details} options={{title:"Details",headerTitleAlign:"center"}}/>
+      <ListStack.Screen name="List" component={List} options={{ title: "List", headerTitleAlign: "center" }} />
+      <ListStack.Screen name="Details" component={Details} options={{ title: "Details", headerTitleAlign: "center" }} />
     </ListStack.Navigator>
   )
 }
 
-const tabBarOptions={
+const tabBarOptions = {
   activeTintColor: 'tomato',
   inactiveTintColor: 'gray',
 }
@@ -48,7 +55,7 @@ const screenOptions = ({ route }) => ({
   tabBarIcon: ({ focused, color, size }) => {
     let iconName;
 
-    switch(route.name){      
+    switch (route.name) {
       // focus가 있으면 'home', 'home-outline'
       case 'Home':
         iconName = focused
@@ -58,12 +65,12 @@ const screenOptions = ({ route }) => ({
       case 'List':
         iconName = focused
           ? 'list'
-          : 'list-outline'; 
+          : 'list-outline';
         break;
       case 'Actions':
         iconName = focused
           ? 'checkmark'
-          : 'checkmark-outline'; 
+          : 'checkmark-outline';
         break;
     }
 
@@ -73,17 +80,19 @@ const screenOptions = ({ route }) => ({
 })
 
 export default function App() {
-  
+
   return (
-    <SafeAreaProvider>
-      <NavigationContainer>
-        <Tab.Navigator screenOptions={screenOptions} tabBarOptions={tabBarOptions}>
-          <Tab.Screen name="Home" component={HomeStackScreen}/>
-          <Tab.Screen name="List" component={ListStackScreen}/>
-          <Tab.Screen name="Actions" component={Actions}/>
-        </Tab.Navigator>      
-      </NavigationContainer>
-    </SafeAreaProvider>
+    <Provider store={store}>
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <Tab.Navigator screenOptions={screenOptions} tabBarOptions={tabBarOptions}>
+            <Tab.Screen name="Home" component={HomeStackScreen} />
+            <Tab.Screen name="List" component={ListStackScreen} />
+            <Tab.Screen name="Actions" component={Actions} />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </Provider>
   );
 }
 
