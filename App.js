@@ -46,6 +46,16 @@ const ListStackScreen = () => {
   )
 }
 
+const ActionStack = createStackNavigator();
+const ActionStackScreen = () => {
+  return (
+    <ActionStack.Navigator>
+      <ActionStack.Screen name="Actions" component={Actions} options={{title:"Actions", headerTitleAlign:"center"}} />
+      <ActionStack.Screen name="Details" component={Details} options={{title:"Details", headerTitleAlign:"center"}}  />
+    </ActionStack.Navigator>
+  )
+}
+
 const tabBarOptions = {
   activeTintColor: 'tomato',
   inactiveTintColor: 'gray',
@@ -88,7 +98,7 @@ export default function App() {
           <Tab.Navigator screenOptions={screenOptions} tabBarOptions={tabBarOptions}>
             <Tab.Screen name="Home" component={HomeStackScreen} />
             <Tab.Screen name="List" component={ListStackScreen} />
-            <Tab.Screen name="Actions" component={Actions} />
+            <Tab.Screen name="Actions" component={ActionStackScreen} />
           </Tab.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>
